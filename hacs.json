@@ -1,6 +1,6 @@
 {
   "name": "Segment Gauge",
-  "filename": "dist/segment-gauge.js",
+  "filename": "segment-gauge.js",
   "type": "plugin",
   "render_readme": true
 }
