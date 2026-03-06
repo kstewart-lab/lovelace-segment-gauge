@@ -52,6 +52,8 @@ npm run arch:check
 ```
 
 Output:
+- `segment-gauge.js`
+- `segment-gauge.js.map`
 - `dist/segment-gauge.js`
 - `dist/segment-gauge.js.map`
 
@@ -107,6 +109,6 @@ Increase the `v=` query string after rebuilds to avoid browser caching.
 1. `npm test`
 2. `npm run typecheck`
 3. `npm run build`
-4. Verify `dist/segment-gauge.js` loads in HA
+4. Verify `segment-gauge.js` loads in HA (HACS artifact)
 5. Update docs/screenshots if needed
 6. Tag/release (`vX.Y.Z`)

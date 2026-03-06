@@ -116,7 +116,7 @@ layout:
 |---|---|---|---|---|
 | `layout.mode` | `LayoutMode` | No | `horizontal` |  Layout of gauge, text, and icon |
 | `layout.split_pct` | number | No | `50` | Width percent for icon and text area. Only when `layout.mode` is `horizontal` |
-| `layout.gauge_alignment` | `GaugeAlignment` | No | `center_bar` |  |
+| `layout.gauge_alignment` | `GaugeAlignment` | No | `center_bar` | In `horizontal` layout, render currently forces `center_labels` alignment. |
 | `layout.content_spacing` | number | No | `0` | Horizontal offset between icon and text |
 <!-- AUTOGEN:LAYOUT_FIELDS:END -->
 
