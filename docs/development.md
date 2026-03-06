@@ -111,4 +111,5 @@ Increase the `v=` query string after rebuilds to avoid browser caching.
 3. `npm run build`
 4. Verify `segment-gauge.js` loads in HA (HACS artifact)
 5. Update docs/screenshots if needed
-6. Tag/release (`vX.Y.Z`)
+6. Push tag `vX.Y.Z` to trigger `.github/workflows/release.yml`
+7. Confirm GitHub Release contains `segment-gauge.js` asset
