@@ -1,0 +1,288 @@
+{
+  "tables": [
+    {
+      "id": "TOP_LEVEL_KEYS",
+      "headers": ["Key", "Type", "Purpose"],
+      "rows": [
+        ["`type`", "string", "Must be `custom:segment-gauge`"],
+        ["`entity`", "string", "Entity id (must have numerical state)"],
+        ["[`content`](#content)", "object", "Name, state, icon display"],
+        ["[`style`](#style)", "object", "Card wrapper style"],
+        ["[`layout`](#layout)", "object", "Card layout and alignment"],
+        ["[`data`](#data)", "object", " Numeric range and formatting"],
+        ["[`levels`](#levels)", "list", " Value range to color / icon mappings"],
+        ["[`bar`](#bar)", "object", "Bar, segments, snapping, track"],
+        ["[`pointer`](#pointer)", "object", "Pointer options"],
+        ["[`scale`](#scale)", "object", "Tick and label scale"],
+        ["[`actions`](#actions)", "object", "Tap, hold, double tap actions"]
+      ]
+    },
+    {
+      "id": "CONTENT_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`content.name`", "string", "No", "`\"\"`", "Friendly name override"],
+        ["`content.show_icon`", "boolean", "No", "`true`", "Show icon"],
+        ["`content.show_name`", "boolean", "No", "`true`", "Show name"],
+        ["`content.show_state`", "boolean", "No", "`true`", "Show state"],
+        ["`content.icon`", "string", "No", "entity's icon", "Fixed icon override"],
+        ["`content.icon_color.mode`", "`IconColorMode`", "No", "`theme`", ""],
+        ["`content.icon_color.value`", "string", "No", "unset", "Used when `icon_color.mode` is `custom`"]
+      ]
+    },
+    {
+      "id": "STYLE_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`style.card`", "`CardStyle`", "No", "`default`", "Wrapper style"],
+        ["`style.debug_layout`", "boolean", "No", "`false`", "Draw debug overlays"]
+      ]
+    },
+    {
+      "id": "LAYOUT_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`layout.mode`", "`LayoutMode`", "No", "`horizontal`", " Layout of gauge, text, and icon"],
+        ["`layout.split_pct`", "number", "No", "`50`", "Width percent for icon and text area. Only when `layout.mode` is `horizontal`"],
+        ["`layout.gauge_alignment`", "`GaugeAlignment`", "No", "`center_bar`", ""],
+        ["`layout.content_spacing`", "number", "No", "`0`", "Horizontal offset between icon and text"]
+      ]
+    },
+    {
+      "id": "DATA_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`data.min`", "number", "No", "`0`", "Lower bound"],
+        ["`data.max`", "number", "No", "`100`", "Upper bound"],
+        ["`data.precision`", "number or null", "No", "`null`", "Entity state precision (decimal places)"],
+        ["`data.unit`", "string", "No", "`\"\"`", "Unit override. If empty, entity `unit_of_measurement` is used."]
+      ]
+    },
+    {
+      "id": "LEVELS_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`levels[].value`", "number", "Yes", "n/a", "Threshold boundary"],
+        ["`levels[].color`", "string", "Yes", "n/a", "Color for the threshold"],
+        ["`levels[].icon`", "string", "No", "`null`", "Optional dynamic icon override."]
+      ]
+    },
+    {
+      "id": "BAR_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`bar.show`", "boolean", "No", "`true`", "Show bar"],
+        ["`bar.height`", "number", "No", "`8`", "Bar height in px"],
+        ["`bar.edge`", "`BarEdge`", "No", "`rounded`", "End shape"],
+        ["`bar.radius`", "number or null", "No", "`null`", "Explicit radius override. If unset, radius derives from `bar.edge` (`rounded` -> `round(bar.height / 2)`, `square` -> `0`)"],
+        ["`bar.color_mode`", "`BarColorMode`", "No", "`stepped`", "Filled color"],
+        ["`bar.fill_mode`", "`BarFillMode`", "No", "`cumulative`", "Fill extent"],
+        ["`bar.track.background`", "string", "No", "card background", "Defaults to `var(--ha-card-background, var(--card-background-color, #000))`"],
+        ["`bar.track.intensity`", "number", "No", "`50`", "`0..100` opacity of unfilled bar portion"],
+        ["`bar.segments.mode`", "`SegmentMode`", "No", "`off`", "Segment mode"],
+        ["`bar.segments.width`", "number", "No", "`0`", "Used in `fixed` segment mode"],
+        ["`bar.segments.gap`", "number", "No", "`0`", "Thickness (in px) of gaps between segments"],
+        ["`bar.segments.segments_per_level`", "number", "No", "`1`", "Number of segments per level"],
+        ["`bar.snapping.fill`", "`FillSnapping`", "No", "`off`", "Fill snapping policy"],
+        ["`bar.snapping.color`", "`ColorSnapping`", "No", "`off`", "Color snapping policy"]
+      ]
+    },
+    {
+      "id": "POINTER_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`pointer.show`", "boolean", "No", "`true`", "Show pointer"],
+        ["`pointer.size`", "number", "No", "`8`", "Size in px"],
+        ["`pointer.angle`", "number", "No", "`90`", "Lower triangle angle in degrees"],
+        ["`pointer.y_offset`", "number", "No", "`0`", "Vertical offset. positive is down"],
+        ["`pointer.color_mode`", "`PointerColorMode`", "No", "`custom`", "Pointer color mode"],
+        ["`pointer.color`", "string", "No", "`#ffffff`", "Color if mode is `custom`"]
+      ]
+    },
+    {
+      "id": "SCALE_CORE_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`scale.show`", "boolean", "No", "`false`", "Show scale"],
+        ["`scale.placement`", "`ScalePlacement`", "No", "`below`", "Tick placement"],
+        ["`scale.spacing`", "`ScaleSpacing`", "No", "`even`", "Tick spacing mode"],
+        ["`scale.y_offset`", "number", "No", "`0`", "Vertical offset. Positive is down"]
+      ]
+    },
+    {
+      "id": "SCALE_TICKS_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`scale.ticks.major_count`", "number", "No", "`5`", "Major tick count"],
+        ["`scale.ticks.minor_per_major`", "number", "No", "`0`", "Minor ticks between majors"],
+        ["`scale.ticks.height_major`", "number", "No", "`12`", "Major tick height in px"],
+        ["`scale.ticks.height_minor`", "number", "No", "`8`", "Minor tick height in px"],
+        ["`scale.ticks.color_mode`", "`TickColorMode`", "No", "`theme`", "Tick color mode"],
+        ["`scale.ticks.color`", "string", "No", "n/a", "Used when mode is `custom`"]
+      ]
+    },
+    {
+      "id": "SCALE_LABELS_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`scale.labels.show`", "boolean", "No", "`true`", "Show labels"],
+        ["`scale.labels.precision`", "number or null", "No", "`null`", "Label precision override"],
+        ["`scale.labels.size`", "number", "No", "`12`", "Label text size in px"],
+        ["`scale.labels.y_offset`", "number", "No", "`0`", "Vertical offset. Positive is down"],
+        ["`scale.labels.color_mode`", "`LabelColorMode`", "No", "`theme`", "Label color mode"],
+        ["`scale.labels.color`", "string", "No", "n/a", "Used when mode is `custom`"]
+      ]
+    },
+    {
+      "id": "ACTIONS_FIELDS",
+      "headers": ["Field", "Type", "Required", "Default", "Notes"],
+      "rows": [
+        ["`actions.tap_action`", "object", "No", "`{ action: more-info }`", "Standard HA action object"],
+        ["`actions.hold_action`", "object", "No", "`{ action: none }`", "Standard HA action object"],
+        ["`actions.double_tap_action`", "object", "No", "`{ action: none }`", "Standard HA action object"]
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "id": "ENUM_ICON_COLOR_MODE",
+      "name": "IconColorMode",
+      "values": [
+        ["theme", "use theme primary color"],
+        ["state", "use Home Assistant state-based color for entity icons (`ha-state-icon`)"],
+        ["level", "use active level color"],
+        ["custom", "use `content.icon_color.value`"]
+      ]
+    },
+    {
+      "id": "ENUM_CARD_STYLE",
+      "name": "CardStyle",
+      "values": [
+        ["default", "normal `ha-card` background, border, shadow"],
+        ["plain", "no card background, border, or shadow"]
+      ]
+    },
+    {
+      "id": "ENUM_LAYOUT_MODE",
+      "name": "LayoutMode",
+      "values": [
+        ["horizontal", "icon and text on the left, gauge on the right"],
+        ["vertical", "icon and text above left, gauge below"],
+        ["stacked", "icon and text stacked and centered, gauge below"]
+      ]
+    },
+    {
+      "id": "ENUM_GAUGE_ALIGNMENT",
+      "name": "GaugeAlignment",
+      "values": [
+        ["center_bar", "ensure center of bar is at center of card"],
+        ["center_labels", "ensure label line is centered"]
+      ]
+    },
+    {
+      "id": "ENUM_BAR_EDGE",
+      "name": "BarEdge",
+      "values": [
+        ["rounded", "rounded bar ends"],
+        ["square", "square bar ends"]
+      ]
+    },
+    {
+      "id": "ENUM_BAR_COLOR_MODE",
+      "name": "BarColorMode",
+      "values": [
+        ["stepped", "hard color jumps at levels"],
+        ["gradient", "smooth gradient between level colors"],
+        ["current_level", "filled region uses current level color only"]
+      ]
+    },
+    {
+      "id": "ENUM_BAR_FILL_MODE",
+      "name": "BarFillMode",
+      "values": [
+        ["cumulative", "fill from bar start to current value"],
+        ["current_segment", "fill only the segment containing the current value"]
+      ]
+    },
+    {
+      "id": "ENUM_SEGMENT_MODE",
+      "name": "SegmentMode",
+      "values": [
+        ["off", "no segments"],
+        ["level", "segment boundaries align to levels"],
+        ["fixed", "repeated fixed-width segments"]
+      ]
+    },
+    {
+      "id": "ENUM_FILL_SNAPPING",
+      "name": "FillSnapping",
+      "values": [
+        ["off", "no snapping"],
+        ["down", "snap fill to the previous whole segment"],
+        ["nearest", "snap fill to the nearest whole segment"],
+        ["up", "snap fill to the next whole segment"]
+      ]
+    },
+    {
+      "id": "ENUM_COLOR_SNAPPING",
+      "name": "ColorSnapping",
+      "values": [
+        ["off", "no color snapping"],
+        ["level", "each segment uses the color of the level with the largest overlap"],
+        ["midpoint", "each segment uses the color sampled at its midpoint"],
+        ["high", "each segment uses the color at its end (higher value side)"],
+        ["low", "each segment uses the color at its start (lower value side)"]
+      ]
+    },
+    {
+      "id": "ENUM_POINTER_COLOR_MODE",
+      "name": "PointerColorMode",
+      "values": [
+        ["gradient", "pointer color from gradient at current value"],
+        ["level", "pointer color from current level"],
+        ["custom", "use `pointer.color`"]
+      ]
+    },
+    {
+      "id": "ENUM_SCALE_PLACEMENT",
+      "name": "ScalePlacement",
+      "values": [
+        ["below", "scale below the bar"],
+        ["bottom", "tick bottoms align to bar bottom"],
+        ["center", "ticks centered on bar center line"],
+        ["top", "tick tops align to bar top"]
+      ]
+    },
+    {
+      "id": "ENUM_SCALE_SPACING",
+      "name": "ScaleSpacing",
+      "values": [
+        ["even", "major ticks evenly distributed over numeric range"],
+        ["levels", "major ticks at level boundaries"]
+      ]
+    },
+    {
+      "id": "ENUM_TICK_COLOR_MODE",
+      "name": "TickColorMode",
+      "values": [
+        ["theme", "theme text color"],
+        ["gradient", "gradient level color"],
+        ["stepped", "discrete level color"],
+        ["level", "current level color"],
+        ["custom", "use `scale.ticks.color`"],
+        ["contrast", "auto contrast against the surface where each tick is drawn"]
+      ]
+    },
+    {
+      "id": "ENUM_LABEL_COLOR_MODE",
+      "name": "LabelColorMode",
+      "values": [
+        ["theme", "HA theme text color"],
+        ["gradient", "gradient color"],
+        ["stepped", "discrete level color"],
+        ["level", "current level color"],
+        ["custom", "use `scale.labels.color`"]
+      ]
+    }
+  ]
+}
