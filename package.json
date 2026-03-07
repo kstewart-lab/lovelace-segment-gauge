@@ -4,7 +4,7 @@
   "version": "0.1.2",
   "type": "module",
   "scripts": {
-    "build": "vite build && node scripts/sync-hacs-bundle.mjs",
+    "build": "vite build",
     "build:watch": "vite build --watch",
     "harness:dev": "vite --config dev-harness/vite.config.ts",
     "harness:build": "vite build --config dev-harness/vite.config.ts",

@@ -41,6 +41,9 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Check generated docs
+        run: npm run docs:check
+
       - name: Build
         run: npm run build
 
@@ -50,4 +53,4 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            segment-gauge.js
+            dist/segment-gauge.js
